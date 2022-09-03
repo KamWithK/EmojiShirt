@@ -1,10 +1,11 @@
 import numpy as np
 import emoji
 
-from PIL import Image, ImageFont
+from PIL import Image, ImageFont, ImageEnhance
 from pilmoji import Pilmoji
 
 SIZE = 16, 16
+SHARPNESS_FILTER = 1
 SHOW = False
 
 emojis = []
@@ -20,6 +21,8 @@ def emoji_to_image(emoji_string):
             pilmoji.text((0, 0), emoji_string, (0, 0, 0), font)
 
         image.thumbnail(SIZE)
+        enhancer = ImageEnhance.Sharpness(image)
+        image = enhancer.enhance(1)
         if SHOW: image.show()
 
         return image
